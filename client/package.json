@@ -9,16 +9,19 @@
     "build": "tsc && vite build && bun run tailwindcss",
     "preview": "vite preview",
     "dev:node": "concurrently \"npx tailwindcss -i ./src/global.css -o ./dist/index.css --watch\" \"vite\"",
+    "dev:docker": "concurrently \"npx tailwindcss -i ./src/global.css -o ./dist/index.css --watch\" \"vite\" --host=0.0.0.0",
     "build:node": "tsc && vite build && npm run tailwindcss"
   },
   "dependencies": {
     "autoprefixer": "^10.4.16",
+    "axios": "^1.6.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "concurrently": "^8.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0",
+    "styled-components": "^6.1.8",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7"
   },

@@ -1,0 +1,60 @@
+version : '3.8'
+
+services:
+    database:
+        image: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: kanastra123
+            MYSQL_DATABASE: kanastra
+        ports:
+            - 3306:3306
+        volumes:
+            - ../database/init.sql:/docker-entrypoint-initdb.d/init.sql
+        container_name: database
+        networks:
+            - kanastra-network
+    
+    client:
+        build:
+            context: ../client
+            target: development
+        volumes:
+            - ../client/src:/app/src
+        ports: 
+            - 8888:8888
+        networks:
+            - kanastra-network
+        container_name: client
+    
+    server:
+        ports: 
+            - "9000:9000"
+        environment:
+            DB_PASSWORD: kanastra123
+            DB_USER: root
+            DB_DATABASE: kanastra
+            DB_HOST: database
+        volumes:
+            - ../server/src:/www
+            - "./server/php.ini:/usr/local/etc/php/php.ini"
+        build:
+            context: ../server
+        networks:
+            - kanastra-network
+        container_name: server
+
+    nginx:
+        image: nginx:alpine
+        tty: true
+        working_dir: /app
+        volumes:
+            - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+        ports:
+            - 80:80
+        networks: 
+            - kanastra-network
+        container_name: nginx
+
+networks:
+    kanastra-network:
+        driver: bridge

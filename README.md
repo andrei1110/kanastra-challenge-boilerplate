@@ -73,27 +73,55 @@ _(Recommended if you're using Windows without WSL)_
 ### Installation
 
 1. Clone the repo
-   ```sh
-   git clone https://github.com/Kanastra-Tech/kanastra-challenge-boilerplate.git
-   ```
-2. Install the packages
-   ```sh
-   bun install
-   ```
-   or
-
-   ```sh
-   npm i
-   ```
-3. With packages installed, run development command:
-    ```sh
-    bun run dev
+  ```sh
+  git clone https://github.com/andrei1110/kanastra-challenge-boilerplate.git
+  ```
+2. Run docker-compose inside directory `compose`. First time:
+  ```
+  $ docker-compose up --build
+  ```
+  Else:
     ```
-    or
+  $ docker-compose up
+  ```
+3. Access services
+  - To access client use [localhost:8888](http://localhost:8888)
+  - To access server via postman [localhost](http://localhost)
 
-    ```sh
-    npm run dev:node
-    ```
+### API routes
+**POST** "`/`":
+
+Header: 
+```
+  Content-Type: "multipart/form-data"
+```
+Body:
+```
+  csv_file: $file
+```
+
+**GET** "`/`":
+
+Query params:
+```
+  page: number,
+  limit: number
+```
+Response **200**:
+``` 
+{
+  [
+    {
+      "name": string,
+      "governmentId": number,
+      "email": string,
+      "debtAmount": number,
+      "debtDueDate": date,
+      "debtID": string
+    }
+  ]
+}
+```
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/Kanastra-Tech/kanastra-challenge-boilerplate.svg?style=for-the-badge

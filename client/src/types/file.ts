@@ -1,6 +1,11 @@
 import { ReactNode } from "react";
 
-enum FileActionType {}
+enum FileActionType {
+  upload = 'upload',
+  addFile = 'addFile',
+  uploadComplete = 'uploadComplete',
+  setLoading = 'setLoading'
+}
 
 type ReducerAction<T, P> = {
   type: T;
@@ -11,7 +16,6 @@ type ReducerAction<T, P> = {
 type FileContextState = {
   isLoading: boolean;
   file: File | null;
-  fileList: File[]; // & {} You can add more information about the challenge inside this type
 };
 
 type FileAction = ReducerAction<
@@ -30,6 +34,7 @@ type FileProviderProps = { children: ReactNode };
 
 export type {
   FileActionType,
+  ReducerAction,
   FileContextState,
   FileAction,
   FileDispatch,
